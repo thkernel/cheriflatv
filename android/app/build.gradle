@@ -1,6 +1,18 @@
+// pour analyser les dépendances de votre projet. Voici comment l'utiliser :
+// Ajouter le Plugin gradle-dependency-analyze :
+// Pour Exécuter l'Analyse : ./gradlew analyzeClassesDependencies
+plugins {
+    id "ca.cutterslade.analyze" version "1.5.3"
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("key.properties")
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -76,11 +88,11 @@ android {
 
     namespace "com.cheriflatv"
     defaultConfig {
-        applicationId "com.cheriflatv"
+        applicationId "com.app.cheriflatelevision"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "2.1.2"
     }
     signingConfigs {
         debug {
@@ -88,6 +100,12 @@ android {
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
     buildTypes {
@@ -107,6 +125,13 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation project(':react-native-inappbrowser-reborn')
+    implementation 'com.sayem.keepawake:keepawake:1.0.0'
+
+    //implementation 'androidx.appcompat:appcompat:1.6.1'  // Assurez-vous d'utiliser la dernière version stable
+    //implementation 'androidx.media3:media3-exoplayer:1.0.0'  // Assurez-vous d'utiliser la dernière version stable
+    // Ajoutez d'autres dépendances nécessaires, en les mettant à jour si possible
+
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

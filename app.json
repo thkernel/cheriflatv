@@ -1,4 +1,13 @@
 {
   "name": "cheriflatv",
-  "displayName": "cheriflatv"
+  "displayName": "CheriflaTV Officiel",
+  "expo": {
+    "name": "CheriflaTV Officiel",
+    "slug": "cheriflatv",
+    "version": "2.1.2",
+    "android": {
+      "package": "com.app.cheriflatelevision",
+      "versionCode": 3
+    }
+  }
 }
